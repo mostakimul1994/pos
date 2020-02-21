@@ -1,0 +1,87 @@
+<div class="modal-dialog" role="document">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title">@lang( 'restaurant.booking_details' )</h4>
+			</div>
+
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-sm-6">
+						@lang('contact.customer'): {{ $booking->customer->name }}<br>
+						@lang('restaurant.table'): {{ $booking->table->name or '' }}<br>
+						@lang('restaurant.service_staff'): {{ $booking->waiter->full_name or '' }}<br>
+					</div>
+					
+				</div>
+			{!! Form::open(['url' => action('Restaurant\BookingController@edit'), 'method' => 'put', 'id' => 'edit_booking_form' ]) !!}
+			<div class="clearfix"></div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="fa fa-user"></i>
+						</span>
+						{!! Form::select('contact_id', 
+							$customers, null, ['class' => 'form-control', 'id' => 'booking_customer_id', 'placeholder' => __('contact.customer'), 'required']); !!}
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="fa fa-user"></i>
+						</span>
+						{!! Form::select('correspondent', 
+							$correspondents, null, ['class' => 'form-control', 'placeholder' => __('restaurant.select_correspondent'), 'id' => 'correspondent']); !!}
+					</div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+			<div id="restaurant_module_span"></div>
+			<div class="clearfix"></div>
+			<div class="col-sm-6">
+				<div class="form-group">
+				{!! Form::label('status', __('restaurant.start_time') . ':*') !!}
+        			<div class='input-group date' >
+        			<span class="input-group-addon">
+                		<span class="glyphicon glyphicon-calendar"></span>
+            		</span>
+					{!! Form::text('booking_start', null, ['class' => 'form-control','placeholder' => __( 'restaurant.start_time' ), 'required', 'id' => 'start_time' ]); !!}
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					{!! Form::label('status', __('restaurant.end_time') . ':*') !!}
+        			<div class='input-group date' >
+        			<span class="input-group-addon">
+                		<span class="glyphicon glyphicon-calendar"></span>
+            		</span>
+					{!! Form::text('booking_end', null, ['class' => 'form-control','placeholder' => __( 'restaurant.end_time' ), 'required', 'id' => 'end_time' ]); !!}
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="form-group">
+				{!! Form::label('booking_note', __( 'brand.note' ) . ':') !!}
+				{!! Form::textarea('booking_note', null, ['class' => 'form-control','placeholder' => __( 'brand.note' ), 'rows' => 3 ]); !!}
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div class="form-group">
+				<div class="checkbox">
+					{!! Form::checkbox('send_notification', 1, true, ['class' => 'input-icheck', 'id' => 'send_notification']); !!} @lang('restaurant.send_notification_to_customer')
+				</div>
+			</div>
+			</div>
+
+			<div class="modal-footer">
+			<button type="submit" class="btn btn-primary">@lang( 'messages.save' )</button>
+			<button type="button" class="btn btn-default" data-dismiss="modal">@lang( 'messages.close' )</button>
+			{!! Form::close() !!}
+		</div>
+
+	</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
